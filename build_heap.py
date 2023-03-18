@@ -10,6 +10,8 @@ def build_heap(data):
         kreisā_puse = 2 * i + 1
         labā_puse = 2 * i + 2
 
+        # kods iet cauri labajam un kreisajam child, lai atrastu mazāko vērtību un pēc tam
+        # to apmaina ar pašreizēju node vērtību, ja mazākā vērtība nav pašreizējā node vērtība
         if kreisā_puse < number and data[kreisā_puse] < data[mazākais_node]:
             mazākais_node = kreisā_puse
         if labā_puse < number and data[labā_puse] < data[mazākais_node]:
@@ -17,14 +19,11 @@ def build_heap(data):
         if mazākais_node != i:
             swaps.append((i, mazākais_node))
             data[i], data[mazākais_node] = data[mazākais_node], data[i]
-            mazākais_node = i
+            swaps += build_heap(data[i:])
 
     return swaps
 
 def main():
-# TODO : add input and corresponding checks
-# add another input for I or F
-# first two tests are from keyboard, third test is from a file
 # input from keyboard
     ievade = input()
     if "I" in ievade:
@@ -54,22 +53,19 @@ def main():
                 return
     else:
         return
+    
     # checks if lenght of data is the same as the said lenght
     if len(data) != n:
         return
-    
+    # and give back all swaps
+    # output all swaps
     swaps = build_heap(data)
     print(len(swaps))
     for i, j in swaps:
         print(i, j)
-    # calls function to assess the data 
-    # and give back all swaps
-
-    # TODO: output how many swaps were made, 
     # this number should be less than 4n (less than 4*len(data))
     if len(swaps) >= 4 * len(data):
         print("Pārāk liels cipars!")
 
-    # output all swaps
 if __name__ == "__main__":
     main()
