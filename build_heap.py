@@ -40,7 +40,7 @@ def main():
             try:
                 with open(mape + faila_nosaukums, 'r') as fails:
                     n = int(fails.readline())
-                    data = list(map(int, input().split()))
+                    data = list(map(int, fails.readline().split()))
             except Exception as exception:
                     print("Fails neeksistē", str(exception))
                     return
