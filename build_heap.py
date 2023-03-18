@@ -11,9 +11,9 @@ def build_heap(data):
         labā_puse = 2 * i + 2
 
         if kreisā_puse < number and data[kreisā_puse] < data[mazākais_node]:
-            kreisā_puse = mazākais_node
+            mazākais_node = kreisā_puse
         if labā_puse < number and data[labā_puse] < data[mazākais_node]:
-            labā_puse = mazākais_node
+            mazākais_node = labā_puse
         if mazākais_node != i:
             swaps.append((i, mazākais_node))
             data[i], data[mazākais_node] = data[mazākais_node], data[i]
@@ -31,6 +31,7 @@ def main():
         if "I" in ievade:
             n = int(input())
             data = list(map(int, input().split()))
+
         if "F" in ievade:
             faila_nosaukums = input()
             mape = 'tests/'
@@ -41,12 +42,18 @@ def main():
             except Exception as exception:
                     print("Fails neeksistē", str(exception))
                     return
+        else:
+            return
         # checks if lenght of data is the same as the said lenght
-        assert len(data) == n
-
+        if len(data) != n:
+            return
+        
+        swaps = build_heap(data)
+        print(len(swaps))
+        for i, j in swaps:
+            print(i, j)
         # calls function to assess the data 
         # and give back all swaps
-        swaps = build_heap(data)
 
         # TODO: output how many swaps were made, 
         # this number should be less than 4n (less than 4*len(data))
@@ -54,10 +61,6 @@ def main():
             print("Pārāk liels cipars!")
 
         # output all swaps
-        print(len(swaps))
-        for i, j in swaps:
-            print(i, j)
-
     except Exception as exception:
         print("Kļūda!", exception)
 
