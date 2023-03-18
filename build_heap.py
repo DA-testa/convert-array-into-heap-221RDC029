@@ -22,47 +22,54 @@ def build_heap(data):
     return swaps
 
 def main():
-    try:
-    # TODO : add input and corresponding checks
-    # add another input for I or F
-    # first two tests are from keyboard, third test is from a file
-    # input from keyboard
-        ievade = input()
-        if "I" in ievade:
+# TODO : add input and corresponding checks
+# add another input for I or F
+# first two tests are from keyboard, third test is from a file
+# input from keyboard
+    ievade = input()
+    if "I" in ievade:
+        try:
             n = int(input())
             data = list(map(int, input().split()))
+            swaps = build_heap(data)
+            print(len(swaps))
+            for swap in swaps:
+                print(swap[0], swap[1])
+        except Exception as exception:
+                print("Kļūda", str(exception))
+                return
+    if "F" in ievade:
+        faila_nosaukums = input()
+        mape = 'tests/'
+        try:
+            with open(mape + faila_nosaukums, 'r') as fails:
+                n = int(fails.readline())
+                data = list(map(int, fails.readline().split()))
+            swaps = build_heap(data)
+            print(len(swaps))
+            for swap in swaps:
+                print(swap[0], swap[1])
+        except Exception as exception:
+                print("Fails neeksistē", str(exception))
+                return
+    else:
+        return
+    # checks if lenght of data is the same as the said lenght
+    if len(data) != n:
+        return
+    
+    swaps = build_heap(data)
+    print(len(swaps))
+    for i, j in swaps:
+        print(i, j)
+    # calls function to assess the data 
+    # and give back all swaps
 
-        if "F" in ievade:
-            faila_nosaukums = input()
-            mape = 'tests/'
-            try:
-                with open(mape + faila_nosaukums, 'r') as fails:
-                    n = int(fails.readline())
-                    data = list(map(int, fails.readline().split()))
-            except Exception as exception:
-                    print("Fails neeksistē", str(exception))
-                    return
-        else:
-            return
-        # checks if lenght of data is the same as the said lenght
-        if len(data) != n:
-            return
-        
-        swaps = build_heap(data)
-        print(len(swaps))
-        for i, j in swaps:
-            print(i, j)
-        # calls function to assess the data 
-        # and give back all swaps
+    # TODO: output how many swaps were made, 
+    # this number should be less than 4n (less than 4*len(data))
+    if len(swaps) >= 4 * len(data):
+        print("Pārāk liels cipars!")
 
-        # TODO: output how many swaps were made, 
-        # this number should be less than 4n (less than 4*len(data))
-        if len(swaps) >= 4 * len(data):
-            print("Pārāk liels cipars!")
-
-        # output all swaps
-    except Exception as exception:
-        print("Kļūda!", exception)
-
+    # output all swaps
 if __name__ == "__main__":
     main()
