@@ -1,27 +1,24 @@
 # python3
 
-def heapify(data, i, swaps):
-    number = len(data)
-    mazākais_node = i
-    kreisā_puse = 2 * i + 1
-    labā_puse = 2 * i + 2
-
-    if kreisā_puse < number and data[kreisā_puse] < data[mazākais_node]:
-        kreisā_puse = mazākais_node
-    if labā_puse < number and data[labā_puse] < data[mazākais_node]:
-        labā_puse = mazākais_node
-    if mazākais_node != i:
-        swaps.append((i, mazākais_node))
-        data[i], data[mazākais_node] = data[mazākais_node], data[i]
-        heapify(data, mazākais_node, swaps)
-
 def build_heap(data):
     swaps = []
     # TODO: Creat heap and heap sort
     # try to achieve  O(n) and not O(n2)
     number = len(data)
     for i in range (number // 2, -1, -1):
-        heapify(data, i, swaps)
+        mazākais_node = i
+        kreisā_puse = 2 * i + 1
+        labā_puse = 2 * i + 2
+
+        if kreisā_puse < number and data[kreisā_puse] < data[mazākais_node]:
+            kreisā_puse = mazākais_node
+        if labā_puse < number and data[labā_puse] < data[mazākais_node]:
+            labā_puse = mazākais_node
+        if mazākais_node != i:
+            swaps.append((i, mazākais_node))
+            data[i], data[mazākais_node] = data[mazākais_node], data[i]
+            mazākais_node = i
+
     return swaps
 
 def main():
